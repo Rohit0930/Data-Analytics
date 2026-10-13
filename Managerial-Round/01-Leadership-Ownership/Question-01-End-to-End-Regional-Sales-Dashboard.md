@@ -27,3 +27,12 @@ Problem: five disconnected regional views.
 Action: POC → shared KPIs → funnel dashboard → production SQL/Airflow.
 Outcome: one consistent view for regional comparisons and quarterly planning.
 Clarify later: exact personal ownership; measurable impact; one significant challenge and how you resolved it.
+
+## Follow-up: confirmed biggest technical challenge (2026-10-13)
+The user clarified that the major challenge was processing approximately **10 crore (100 million) source records** into a **30,000–40,000-row reporting dataset** appropriate for required dimensions and slicers. Initial transformation/aggregation was implemented in Python for the POC; after database access was granted, the logic was rewritten in SQL for the production pipeline. This is a reporting-grain reduction, **not evidence that 99.96% of business information was discarded**. Exact grain, validation approach, performance gains and personal role in SQL migration remain to be confirmed.
+
+### Revised challenge paragraph for interview answer
+“The biggest technical challenge was the data volume. We were dealing with around 10 crore source records, but the dashboard didn't need to load every transaction at that level. We identified the reporting dimensions and slicers needed by the business and prepared an aggregated dataset of roughly 30,000 to 40,000 rows. During the POC we used Python for the transformations. Once we received database access, we moved that processing logic into SQL as part of the production workflow. That let us build the Power BI report on data prepared at the level required for analysis, rather than pushing all the raw records into the report.”
+
+### Follow-up to verify
+What checks were performed to make sure totals and conversion KPIs still reconciled after aggregation?

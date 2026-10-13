@@ -36,3 +36,20 @@ The user clarified that the major challenge was processing approximately **10 cr
 
 ### Follow-up to verify
 What checks were performed to make sure totals and conversion KPIs still reconciled after aggregation?
+
+## Validation follow-up — confirmed by candidate (2026-10-13)
+The candidate confirmed that they compared KPI values produced by SQL aggregations from the source data with the corresponding Power BI report outputs to identify mismatches. This is source-to-report reconciliation. They did **not** specify formal test coverage, numerical tolerances, or exact measures validated; do not claim those.
+
+### Interview-ready validation answer
+“To validate the aggregated dataset, we independently calculated the relevant metrics in SQL using the source data and compared those results with the numbers displayed in Power BI at the corresponding reporting level. That helped us check whether the transformations and report calculations were producing consistent results. We designed the aggregation around the business questions, KPIs and dimensions, rather than reducing rows arbitrarily.”
+
+### Final concise leadership answer — draft for rehearsal
+“One project I worked on was a quarterly sales-performance dashboard for a technology brand with five regions. Leadership previously reviewed the regions separately and wanted a single view to compare performance and plan the next quarter.
+
+We began with an Excel/CSV-based POC. I worked on the data preparation and Power BI reporting, using Python for the initial transformations. We defined the metrics and dimensions needed for regional and global funnel analysis, including targeted leads, opportunities, conversion and revenue.
+
+The biggest technical challenge was scale: roughly 10 crore source records had to be prepared for efficient reporting. By designing the aggregation around the required reporting dimensions, we produced a dataset of about 30,000–40,000 rows. We compared the SQL source aggregations with the figures in Power BI to check consistency. After database access became available, we migrated the processing logic from Python to SQL and automated the weekly workflow with Airflow.
+
+The resulting dashboard brought the five regions into one view so leadership could compare regions and subregions, identify funnel gaps and inform next-quarter priorities. This taught me that end-to-end BI delivery includes understanding the decision, selecting the right data grain, validating the figures and operationalising the pipeline.”
+
+Status: Practiced; ready for another rehearsal. Personal leadership scope and quantitative impact remain to be established; do not imply sole ownership without confirmation.

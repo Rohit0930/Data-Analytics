@@ -10,7 +10,7 @@
 - Current lesson: **Day 01 — Joins, Grain & Cardinality**
 - Coding challenges passed: **0**
 - Mock interviews completed: **0**
-- Current next action: **Submit Day 01 Coding Challenge 01**
+- Current next action: **Explain why INNER JOIN output can exceed the number of Orders rows when the customer key is duplicated; then submit Coding Challenge 01**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
@@ -26,7 +26,7 @@
 ## Mistake and revision log
 | Date | Day | Mistake / learning gap | Correct principle | Revision status |
 |---|---|---|---|---|
-| — | — | Awaiting first submitted exercise | — | — |
+| 2026-10-14 | 01 | In first join-cardinality answer, recognized matching rows matter but did not explicitly check uniqueness of the Customers join key | With unique customer_id in Customers, each Orders row matches at most one customer and INNER JOIN output is <= Orders row count; duplicate customer keys can multiply matches | Needs reinforcement |
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.
@@ -36,6 +36,6 @@
 - **Completion:** A lesson is completed only after hands-on review and interview feedback.
 
 ## Notes
-- The learner has not yet submitted the Day 01 solution.
+- First conceptual interview response received: **partially correct**. User reasoned that row counts depend on matches per customer; feedback clarified uniqueness of the customer-side join key and fanout.\n- The learner has not yet submitted the Day 01 coding solution.
 - Add actual mistakes only after observing an attempt; do not assume weaknesses.
 - Keep lesson notes and tracker synchronized after each completed topic.

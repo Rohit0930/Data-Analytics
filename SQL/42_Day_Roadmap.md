@@ -1,6 +1,6 @@
 # Senior SQL Mastery — 42-Day Roadmap
 
-**Start:** 2026-10-13  
+**Start:** 2026-10-14  
 **Database:** PostgreSQL  
 **Level:** Senior / Lead Data Analyst, BI Analyst, Analytics Engineer  
 **Daily time:** 60–90 minutes  

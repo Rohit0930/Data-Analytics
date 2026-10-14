@@ -38,3 +38,33 @@ Corrections:
 Try first aggregating payments at order_id grain in a CTE, then LEFT JOIN that result to orders and customers. At the customer level, count orders and sum order amount and pre-aggregated paid amount. Explain why the intermediate payment result has at most one row per order.
 
 Do not use SUM(DISTINCT order amount). Corrected solution intentionally withheld until next learner attempt.
+
+
+## Attempt 2 — 2026-10-14
+
+**Learner SQL:**
+
+```sql
+WITH amount_paid AS (
+    SELECT order_id, SUM(amount_paid) AS amount_paid
+    FROM sql_lab_payments
+    GROUP BY order_id
+)
+SELECT a.customer_id, a.customer_name,
+       collese(COUNT(b.order_id), 0) AS total_order,
+       collese(SUM(b.amount), 0) AS order_value,
+       collese(SUM(c.paid_amount), 0) AS amount paid
+FROM sql_lab_customers a
+LEFT JOIN sql_lab_orders b ON a.customer_id = b.customer_id
+LEFT JOIN amount_paid c ON b.order_id = c.order_id
+GROUP BY a.customer_id, a.customer_name;
+```
+
+**Assessment:** The join and aggregation strategy is now logically correct. Payments are grouped to one row per order before joining, preventing fanout of order value.
+
+**Three remaining SQL errors:**
+1. Source column is `paid_amount`, not `amount_paid`: use `SUM(paid_amount) AS amount_paid` in the CTE.
+2. Function name is `COALESCE`, not `collese`.
+3. Alias `AS amount paid` is invalid without quotes; use `AS total_paid`.
+
+Also, COUNT(b.order_id) already returns 0 for customers without orders, so COALESCE around COUNT is optional. Challenge remains in progress until runnable query is submitted. Reference solution still withheld.

@@ -230,3 +230,17 @@ Include customers with zero orders. Do not inflate order value due to multiple p
 - **Mistakes identified:** Not yet assessed.
 - **Performance observations:** Not yet assessed.
 - **Next action:** Submit the first coding challenge for review.
+
+## 10. Day 01 interview feedback — 2026-10-14
+
+**Question:** Customers has 100 rows, Orders has 500 rows. Can an INNER JOIN on `customer_id` return more than 500 rows?
+
+**Learner response:** “Might be more than 500 based on how much rows we are getting against one customer.”
+
+**Assessment:** Partially correct. The answer recognizes that match multiplicity matters, but must explicitly consider whether `Customers.customer_id` is unique.
+
+**Correct reasoning:** If `customer_id` is unique in Customers, every Orders row matches at most one customer, so the result cannot exceed 500 rows. If Customers contains duplicate `customer_id` values, a single order can match multiple customer records and produce more than 500 joined rows.
+
+**Revision point:** Before predicting JOIN row counts, state the grain and uniqueness of both join keys. Do not confuse many orders per customer with duplicated customer records.
+
+**Status:** Follow-up explanation pending; hands-on challenge not yet submitted.

@@ -10,12 +10,12 @@
 - Current lesson: **Day 01 — Joins, Grain & Cardinality**
 - Coding challenges passed: **1**
 - Mock interviews completed: **0**
-- Current next action: **Explain why aggregating payments by order_id prevents join fanout (Day 1 interview check)**
+- Current next action: **Answer the SUM(DISTINCT amount) edge-case follow-up to finish Day 1 interview check**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
-| 01 | Joins, grain, cardinality, fanout | In progress | Attempt 4: passed | 2 questions reviewed |
+| 01 | Joins, grain, cardinality, fanout | In progress | Attempt 4: passed | 3 questions reviewed; final explanation needs revision |
 | 02–07 | Advanced joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -33,6 +33,8 @@
 | 2026-10-14 | 01 | Attempt 2: SUM(amount_paid) references nonexistent column; COALESCE misspelled collese; alias AS amount paid invalid | Use SUM(paid_amount) AS amount_paid in CTE; COALESCE; AS total_paid | Corrected in attempt 4 |
 | 2026-10-14 | 01 | Attempt 3: source payments table has paid_amount, not amount_paid; payment CTE outputs amount_paid, not paid_amount | In CTE use SUM(paid_amount) AS amount_paid; in final SELECT use SUM(c.amount_paid) | Corrected in attempt 4 |
 
+| 2026-10-14 | 01 | Interview explanation for SUM(DISTINCT amount) was incomplete; conflated duplicate join rows with duplicate monetary values | SUM(DISTINCT amount) deduplicates values, not orders: two valid orders with identical amounts must both count. Pre-aggregate payments per order_id to prevent fanout | Follow-up pending |
+
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.
 - **Edge cases:** Handles zero matches, duplicate keys, NULLs and boundary dates when relevant.
@@ -47,5 +49,6 @@
 - Second Day 01 coding attempt correctly pre-aggregated payments per order and fixed join keys. Three SQL syntax issues remain. Coding challenge not yet passed; learner asked to resubmit corrected runnable query.
 - Third coding attempt fixed COALESCE and the output alias. Payment CTE source column and downstream CTE column reference remain reversed. Fourth attempt is valid PostgreSQL and produces correct totals. Coding challenge passed.
 - Fourth coding attempt passed: correctly uses SUM(paid_amount) AS paid_amount in CTE, then SUM(c.paid_amount) in outer query, with correct LEFT JOINs, COUNT, COALESCE, and GROUP BY. Sample expected output: Asha 2/2000/2000, Bharat 1/1500/1000, Charu 0/0/0, Dev 1/500/400.
+- Final Day 1 interview question attempted: user correctly connected the risk to joins but did not explain why SUM(DISTINCT amount) is unsafe when separate orders share an amount. Follow-up example assigned; overall Day 1 not yet complete.
 - Add actual mistakes only after observing an attempt; do not assume weaknesses.
 - Keep lesson notes and tracker synchronized after each completed topic.

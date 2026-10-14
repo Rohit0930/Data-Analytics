@@ -1,6 +1,6 @@
 # Day 01 — SQL Joins, Data Grain & Cardinality
 
-**Date:** 2026-10-13  
+**Date:** 2026-10-14  
 **Status:** In progress — hands-on challenge pending  
 **Database:** PostgreSQL  
 **Target level:** Senior Data Analyst / BI Analyst

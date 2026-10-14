@@ -68,3 +68,34 @@ GROUP BY a.customer_id, a.customer_name;
 3. Alias `AS amount paid` is invalid without quotes; use `AS total_paid`.
 
 Also, COUNT(b.order_id) already returns 0 for customers without orders, so COALESCE around COUNT is optional. Challenge remains in progress until runnable query is submitted. Reference solution still withheld.
+
+
+## Attempt 3 — 2026-10-14
+
+**Learner SQL:**
+
+```sql
+WITH amount_paid AS (
+    SELECT order_id, SUM(amount_paid) AS amount_paid
+    FROM sql_lab_payments
+    GROUP BY order_id
+)
+SELECT a.customer_id, a.customer_name,
+       COUNT(b.order_id) AS total_order,
+       COALESCE(SUM(b.amount), 0) AS order_value,
+       COALESCE(SUM(c.paid_amount), 0) AS paid_amount
+FROM sql_lab_customers a
+LEFT JOIN sql_lab_orders b ON a.customer_id = b.customer_id
+LEFT JOIN amount_paid c ON b.order_id = c.order_id
+GROUP BY a.customer_id, a.customer_name;
+```
+
+**Assessment:** Correct join/aggregation logic; query cannot execute until two column references are fixed.
+
+- The physical payment column is `sql_lab_payments.paid_amount`. Use `SUM(paid_amount) AS amount_paid` inside the CTE.
+- The CTE exposes `amount_paid`, so the final SELECT should use `SUM(c.amount_paid)`, not `SUM(c.paid_amount)`.
+- COUNT(b.order_id) correctly returns zero for customers without orders.
+- COALESCE around the SUM expressions correctly handles zero-order customers.
+- An ORDER BY may be added for deterministic display, but is not necessary for correctness.
+
+**Next action:** Resubmit the query with the two corrected references. Do not mark coding challenge passed until runnable SQL is submitted.

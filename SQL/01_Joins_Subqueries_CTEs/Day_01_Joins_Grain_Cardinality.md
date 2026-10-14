@@ -190,7 +190,7 @@ For Asha, order 1001 has two payments. The joined rows include `1200, 1200, 800`
 - Think about pre-aggregating each measure at the appropriate grain before combining results.
 - Check source totals against post-join totals and inspect join keys for uniqueness.
 
-## 6. Coding challenge 01 — Awaiting learner submission
+## 6. Coding challenge 01 — Passed (attempt 4, 2026-10-14)
 
 **Business requirement:** Return one row per customer containing:
 - customer ID and name
@@ -209,7 +209,7 @@ Include customers with zero orders. Do not inflate order value due to multiple p
 | Charu | 0 | 0 | 0 |
 | Dev | 1 | 500 | 400 |
 
-**Status:** Solution deliberately withheld until the learner attempts the exercise. After review, add their attempt, corrected solution, edge cases and optimization notes here.
+**Status:** Passed after four attempts. Full corrected learner solution and feedback: [Day 1 challenge review](Day_01_Challenge_01_Attempt_Review.md).
 
 ## 7. Interview discussion (ask one at a time)
 1. Why can a JOIN return more rows than either input table?
@@ -218,18 +218,18 @@ Include customers with zero orders. Do not inflate order value due to multiple p
 4. How do grain and join cardinality affect Power BI measures and star-schema design?
 
 ## 8. Revision checklist
-- [ ] Can explain the grain of each table.
-- [ ] Can predict row counts for INNER and LEFT joins.
-- [ ] Can explain COUNT(*) vs COUNT(column) in LEFT JOINs.
-- [ ] Can detect join fanout and inflated SUM.
-- [ ] Can independently solve Coding Challenge 01.
+- [x] Can explain the grain of each table.
+- [x] Can predict row counts for INNER and LEFT joins (review uniqueness assumptions).
+- [x] Can explain COUNT(*) vs COUNT(column) in LEFT JOINs.
+- [x] Can detect join fanout and inflated SUM.
+- [x] Can independently solve Coding Challenge 01.
 - [ ] Can explain the solution in 60 seconds without rambling.
 
 ## 9. Feedback log
-- **Submitted SQL:** Pending.
-- **Mistakes identified:** Not yet assessed.
-- **Performance observations:** Not yet assessed.
-- **Next action:** Submit the first coding challenge for review.
+- **Submitted SQL:** Passed in attempt 4; see linked challenge review.
+- **Mistakes identified:** Initial join fanout, aliases, payment column references, COALESCE spelling; all corrected. Interview wording on SUM(DISTINCT) remains a revision item.
+- **Performance observations:** Pre-aggregation avoids multiplicative rows; no query-plan benchmark performed.
+- **Next action:** Day 2 advanced joins; short review of SUM(DISTINCT) and concise interview phrasing.
 
 ## 10. Day 01 interview feedback — 2026-10-14
 
@@ -243,4 +243,15 @@ Include customers with zero orders. Do not inflate order value due to multiple p
 
 **Revision point:** Before predicting JOIN row counts, state the grain and uniqueness of both join keys. Do not confuse many orders per customer with duplicated customer records.
 
-**Status:** Follow-up explanation pending; hands-on challenge not yet submitted.
+**Status:** Follow-up resolved and coding challenge passed.
+
+
+## 12. Day 01 final interview check — passed (2026-10-14)
+
+**Follow-up:** Three distinct orders have amounts 500, 500 and 800. Compare SUM(amount) and SUM(DISTINCT amount).
+
+**Learner answer:** SUM(amount) = 1800; SUM(DISTINCT amount) = 1300. **Both correct.** Since both 500-valued orders are legitimate, 1800 is the correct order revenue. DISTINCT eliminates duplicate *values*, not duplicate order identities.
+
+**Suggested interview answer:** “I aggregated payments by order_id before joining because an order can have multiple payment rows. This prevents multiplying the order value. SUM(DISTINCT amount) is unsafe because two different orders may have the same amount.”
+
+**Overall Day 01 status:** Completed. SQL challenge passed; concept check passed. Revision: practice delivering the explanation concisely without prompting.

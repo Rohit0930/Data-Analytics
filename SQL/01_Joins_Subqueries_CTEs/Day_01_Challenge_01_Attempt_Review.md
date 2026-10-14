@@ -99,3 +99,38 @@ GROUP BY a.customer_id, a.customer_name;
 - An ORDER BY may be added for deterministic display, but is not necessary for correctness.
 
 **Next action:** Resubmit the query with the two corrected references. Do not mark coding challenge passed until runnable SQL is submitted.
+
+
+## Attempt 4 — 2026-10-14 — PASSED
+
+**Learner's valid PostgreSQL query:**
+
+```sql
+WITH amount_paid AS (
+    SELECT order_id, SUM(paid_amount) AS paid_amount
+    FROM sql_lab_payments
+    GROUP BY order_id
+)
+SELECT a.customer_id,
+       a.customer_name,
+       COUNT(b.order_id) AS total_order,
+       COALESCE(SUM(b.amount), 0) AS order_value,
+       COALESCE(SUM(c.paid_amount), 0) AS paid_amount
+FROM sql_lab_customers a
+LEFT JOIN sql_lab_orders b ON a.customer_id = b.customer_id
+LEFT JOIN amount_paid c ON b.order_id = c.order_id
+GROUP BY a.customer_id, a.customer_name;
+```
+
+**Assessment: Passed.** The payment CTE has one row per order_id; the outer joins therefore preserve one row per order and do not multiply order revenue. LEFT JOIN retains customers with no orders, COUNT(b.order_id) returns 0, and COALESCE returns 0 for missing sums. All identifiers are valid.
+
+**Expected output:**
+
+| Customer | Orders | Order value | Paid |
+|---|---:|---:|---:|
+| Asha | 2 | 2000 | 2000 |
+| Bharat | 1 | 1500 | 1000 |
+| Charu | 0 | 0 | 0 |
+| Dev | 1 | 500 | 400 |
+
+**Optional:** ORDER BY a.customer_id for deterministic display. Coding challenge passed; Day 1 overall still in progress pending concise interview explanation.

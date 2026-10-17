@@ -7,10 +7,10 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (Non-equi JOIN next)**
+- Current lesson: **Day 02 — Advanced Joins (Non-Equi JOIN practice)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Practice non-equi JOIN salary range matching; CROSS JOIN reference solution provided on request**
+- Current next action: **Submit Non-Equi JOIN salary band challenge, covering exact boundaries and NULL salary**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
@@ -92,6 +92,12 @@ LEFT JOIN employees b
 - Complete solution uses monthly sales CTE, products CROSS JOIN months, LEFT JOIN by product_id and month_start, and COALESCE for missing sales.
 - Six expected rows; total revenue 3400. Reference solution shared on learner request, not independently passed.
 - Next: Non-equi JOIN range-matching challenge.
+
+## Day 02 Non-Equi JOIN — challenge assigned (2026-10-17)
+
+- Practice setup: employee_pay with six employees including boundary salaries 60000, 100000, 200000 and one NULL salary; salary_bands with four half-open ranges.
+- Goal: LEFT JOIN to salary bands using inclusive lower / exclusive upper boundaries; preserve NULL salary; expected six rows with no duplicates.
+- Learner attempt pending. Do not mark passed until reviewed.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

@@ -451,3 +451,19 @@ LEFT JOIN employees b
 **Interview explanation:** “I join the employees table to itself using two aliases because manager_id points to another employee's employee_id. LEFT JOIN keeps employees who have no manager, such as the CEO.”
 
 **Next:** FULL OUTER JOIN reconciliation exercise. Overall Day 02 remains in progress.
+
+
+## FULL OUTER JOIN — attempt 1 feedback (2026-10-17)
+
+Learner submitted a FULL OUTER JOIN between sales_orders and finance_orders on order_id, with COALESCE for the output ID and CASE for reconciliation status.
+
+Assessment: PARTIALLY CORRECT; revise before marking passed.
+
+- Join type and matching key are correct.
+- Remove MySQL-style backtick quoting: PostgreSQL uses unquoted identifiers or double quotes, and COALESCE is a function.
+- Use the joined order IDs to identify missing rows, not nullable monetary amounts.
+- Handle nullable amount comparison explicitly (PostgreSQL IS DISTINCT FROM).
+- Match required uppercase output statuses exactly.
+- Example edge case: order 105 appears in both tables; Sales amount NULL and Finance amount 300. This is not finance-only.
+
+Learner to resubmit corrected SQL. Reference solution intentionally withheld.

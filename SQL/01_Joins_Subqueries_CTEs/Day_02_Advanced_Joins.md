@@ -3,7 +3,7 @@
 **Started:** 2026-10-17  
 **Database:** PostgreSQL  
 **Topics:** Self JOIN, FULL OUTER JOIN, CROSS JOIN, Non-Equi JOIN; ON vs WHERE edge cases  
-**Status:** Topic 1 (Self JOIN) passed; Topic 2 (FULL OUTER JOIN) next
+**Status:** Self JOIN passed; FULL OUTER JOIN reference reviewed; Topic 3 CROSS JOIN coding challenge assigned
 
 ## Day 2 plan
 1. Self JOIN — employee/manager hierarchy.
@@ -379,7 +379,7 @@ Answer **one at a time**, after the corresponding hands-on attempt.
 - [x] Self JOIN purpose: learner answered concept question correctly.
 - [ ] **Challenge 01 (active):** Employee–manager self join, preserving top-level employee (see earlier section; no solution provided).
 - [ ] Challenge 02: FULL OUTER JOIN reconciliation with unmatched and mismatched records.
-- [ ] Challenge 03: CROSS JOIN product–month grid, including zero-sales months.
+- [ ] Challenge 03: CROSS JOIN product–month grid, including zero-sales months (new exercise assigned 2026-10-17).
 - [ ] Challenge 04: Non-equi range join with boundary conditions.
 - [ ] Challenge 05: ON vs WHERE troubleshooting and final interview explanation.
 
@@ -502,3 +502,68 @@ Expected output:
 **Explanation:** Identify missing rows by their IDs first. Only after both IDs are present should the amount comparison run. PostgreSQL `IS DISTINCT FROM` treats one NULL amount and one non-NULL amount as different. If both present amounts are NULL, the reference query labels the row MATCH; whether to instead flag missing amounts is a business decision.
 
 **Next:** Learner should explain the NULL-amount edge case in their own words, then proceed to CROSS JOIN. Day 2 overall remains in progress.
+
+
+## CROSS JOIN — Challenge 03 assigned (2026-10-17)
+
+**Goal:** Build a complete product-by-month revenue grid, including zero-sales months, without double-counting transactions. Learner solution is pending; **do not disclose the answer before the attempt**.
+
+**PostgreSQL input setup:**
+
+```sql
+DROP TABLE IF EXISTS day2_sales;
+DROP TABLE IF EXISTS day2_months;
+DROP TABLE IF EXISTS day2_products;
+
+CREATE TABLE day2_products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(50)
+);
+CREATE TABLE day2_months (
+    month_start DATE PRIMARY KEY
+);
+CREATE TABLE day2_sales (
+    sale_id INT PRIMARY KEY,
+    product_id INT REFERENCES day2_products(product_id),
+    sale_date DATE,
+    revenue NUMERIC(12,2)
+);
+
+INSERT INTO day2_products VALUES
+(101, 'Starter'),
+(102, 'Pro'),
+(103, 'Enterprise');
+
+INSERT INTO day2_months VALUES
+('2026-07-01'),
+('2026-08-01');
+
+INSERT INTO day2_sales VALUES
+(1, 101, '2026-07-03', 200),
+(2, 101, '2026-07-22', 300),
+(3, 102, '2026-07-11', 700),
+(4, 102, '2026-08-12', 450),
+(5, 102, '2026-08-20', 550),
+(6, 103, '2026-08-02', 1200);
+```
+
+**Expected output:**
+
+| product_name | month_start | total_revenue |
+|---|---|---:|
+| Starter | 2026-07-01 | 500 |
+| Starter | 2026-08-01 | 0 |
+| Pro | 2026-07-01 | 700 |
+| Pro | 2026-08-01 | 1000 |
+| Enterprise | 2026-07-01 | 0 |
+| Enterprise | 2026-08-01 | 1200 |
+
+**Review criteria:**
+- Every product × month is present: 3 × 2 = 6 rows.
+- Total revenue is 500 + 0 + 700 + 1000 + 0 + 1200 = 3400.
+- Multiple transactions per product-month are aggregated, not arbitrarily deduplicated.
+- No-sales combinations show zero.
+- Use CROSS JOIN, LEFT JOIN, SUM, COALESCE; CTE optional.
+- Explain grain and cross-join growth. Deterministic output ordering is recommended.
+
+**Status:** Awaiting learner SQL; challenge solution withheld.

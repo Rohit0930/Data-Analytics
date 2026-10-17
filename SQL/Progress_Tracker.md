@@ -7,10 +7,10 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (ON vs WHERE next)**
+- Current lesson: **Day 02 — Advanced Joins (ON vs WHERE challenge active)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Learn advanced LEFT JOIN ON vs WHERE predicates and NULL behavior; Non-Equi reference solution shared on request**
+- Current next action: **Submit ON vs WHERE LEFT JOIN challenge: PAID 2026 orders per customer, including zero-order customers**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
@@ -105,6 +105,13 @@ LEFT JOIN employees b
 - Reference uses LEFT JOIN employee_pay to salary_bands with salary >= min_salary and salary < max_salary; six expected rows including NULL salary.
 - Correctly explains half-open interval boundaries and the need to validate overlapping ranges in production.
 - Not counted as a passed challenge. Next topic: ON vs WHERE and NULL behavior.
+
+## Day 02 Topic 5 — ON vs WHERE challenge assigned (2026-10-17)
+
+- Business problem: return every customer and paid 2026 order count and revenue; include customers with no qualifying orders.
+- Example customers Ava, Ben, Chloe, Diego; expected paid_orders 2/0/1/0 and paid_revenue 250/0/200/0.
+- Focus: put right-table filters in ON to preserve unmatched customers; use COUNT(order_id), COALESCE(SUM(amount),0), GROUP BY.
+- Challenge pending, no reference solution shared. Final Day 2 interview check still required before marking day completed.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

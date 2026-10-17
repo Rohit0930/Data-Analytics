@@ -7,16 +7,16 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (FULL OUTER JOIN next)**
+- Current lesson: **Day 02 — Advanced Joins (CROSS JOIN practice)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Review provided FULL OUTER JOIN reference solution; continue Day 02 with CROSS JOIN**
+- Current next action: **Submit CROSS JOIN product-month revenue grid challenge; expected 6 rows and 3400 total revenue**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN reference provided (not independently passed) | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN reference provided (not independently passed); CROSS JOIN challenge assigned | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -78,6 +78,13 @@ LEFT JOIN employees b
 - Expected classifications: 101 MATCH, 102 AMOUNT_MISMATCH, 103 ONLY_IN_SALES, 104 ONLY_IN_FINANCE.
 - Explanation: NULL amount does not mean a missing order. Both NULL amounts currently classify as MATCH; business rules may require a missing-amount category.
 - Coding challenge remains not independently passed; move to CROSS JOIN next.
+
+## Day 02 CROSS JOIN — challenge assigned (2026-10-17)
+
+- Practice setup and expected six-row output saved in Day_02_Advanced_Joins.md.
+- Input: 3 products × 2 months; 6 sales records with multiple transactions for some product-months.
+- Goal: CROSS JOIN reporting grid, LEFT JOIN sales, SUM and COALESCE; total 3400, including zero-sales combinations.
+- Learner attempt pending. No solution disclosed; do not mark passed until reviewed.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

@@ -566,7 +566,7 @@ INSERT INTO day2_sales VALUES
 - Use CROSS JOIN, LEFT JOIN, SUM, COALESCE; CTE optional.
 - Explain grain and cross-join growth. Deterministic output ordering is recommended.
 
-**Status:** Awaiting learner SQL; challenge solution withheld.
+**Status:** Partial learner attempt reviewed; reference solution supplied at learner request. Not independently passed.
 
 
 ## CROSS JOIN — partial attempt 1 (2026-10-17)
@@ -575,4 +575,36 @@ Learner began a CTE aggregating sales by month and product, but submitted only a
 
 **Corrections requested:** Use actual columns from day2_sales: product_id, sale_date, revenue; customer_id, sales_date, and sales do not exist in this setup. Use DATE_TRUNC('month', sale_date)::date for the month_start date rather than extracting a month number. Fix invalid EXTRACT syntax and the extra comma in GROUP BY. Then build the product-month grid with CROSS JOIN, attach sales via LEFT JOIN, and COALESCE missing totals to zero.
 
-**Status:** Partial attempt, not passed. Full reference solution withheld pending learner completion.
+**Status:** Partial attempt, not passed. Reference solution subsequently provided at learner request; see below.
+
+
+## CROSS JOIN — reference solution supplied on learner request (2026-10-17)
+
+The learner requested the completed solution after submitting a partial CTE attempt. The solution is shared for learning; **not counted as an independently passed coding challenge**.
+
+```sql
+WITH cte AS (
+    SELECT
+        product_id,
+        DATE_TRUNC('month', sale_date)::date AS month_start,
+        SUM(revenue) AS total_revenue
+    FROM day2_sales
+    GROUP BY product_id, DATE_TRUNC('month', sale_date)::date
+)
+SELECT
+    p.product_name,
+    m.month_start,
+    COALESCE(c.total_revenue, 0) AS total_revenue
+FROM day2_products p
+CROSS JOIN day2_months m
+LEFT JOIN cte c
+    ON p.product_id = c.product_id
+   AND m.month_start = c.month_start
+ORDER BY p.product_id, m.month_start;
+```
+
+**Expected output:** Starter/July 500, Starter/August 0, Pro/July 700, Pro/August 1000, Enterprise/July 0, Enterprise/August 1200.
+
+**Key points:** Monthly pre-aggregation yields a unique product-month key; CROSS JOIN generates the full 3 × 2 grid; LEFT JOIN retains combinations without sales; COALESCE returns zero for missing revenue. Consider active product periods and size of Cartesian product in production.
+
+**Next topic:** Non-equi JOIN / salary range matching. Day 02 remains in progress.

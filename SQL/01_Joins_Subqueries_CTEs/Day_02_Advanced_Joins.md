@@ -3,7 +3,7 @@
 **Started:** 2026-10-17  
 **Database:** PostgreSQL  
 **Topics:** Self JOIN, FULL OUTER JOIN, CROSS JOIN, Non-Equi JOIN; ON vs WHERE edge cases  
-**Status:** Topic 1 (Self JOIN), coding challenge pending
+**Status:** Topic 1 (Self JOIN) passed; Topic 2 (FULL OUTER JOIN) next
 
 ## Day 2 plan
 1. Self JOIN — employee/manager hierarchy.
@@ -39,7 +39,7 @@ INSERT INTO employees (employee_id, employee_name, manager_id) VALUES
 (6, 'Dev', 3);
 ```
 
-### Challenge 01 — Awaiting learner solution
+### Challenge 01 — Passed (2026-10-17)
 
 Return every employee and their manager's name. Include Priya, whose manager_id is NULL. Choose the appropriate join type and use separate aliases.
 
@@ -52,7 +52,7 @@ Return every employee and their manager's name. Include Priya, whose manager_id 
 | Sara | Amit |
 | Dev | Neha |
 
-**Do not reveal the solution until the learner attempts it.**
+**Learner submitted and passed the employee–manager Self JOIN challenge.** The exact query and feedback are recorded below.
 
 ### Review criteria
 - Correct relationship between employee.manager_id and manager.employee_id.
@@ -61,7 +61,7 @@ Return every employee and their manager's name. Include Priya, whose manager_id 
 - Explain when to use LEFT vs INNER JOIN.
 
 ## Pending topics
-- [ ] Self JOIN challenge and feedback
+- [x] Self JOIN challenge and feedback
 - [ ] FULL OUTER JOIN
 - [ ] CROSS JOIN
 - [ ] Non-Equi JOIN
@@ -75,7 +75,7 @@ Day 1 remains completed; Day 2 is not yet completed.
 
 # Advanced teaching guide — Day 02
 
-**Scope:** Deep understanding of Self, FULL OUTER, CROSS, and Non-Equi joins; PostgreSQL NULL semantics; ON vs WHERE; fanout; performance; business interview cases. This guide supplies worked examples for learning, but does **not** supply the answer to the pending employee–manager challenge above.
+**Scope:** Deep understanding of Self, FULL OUTER, CROSS, and Non-Equi joins; PostgreSQL NULL semantics; ON vs WHERE; fanout; performance; business interview cases. This guide supplies worked examples for learning. The employee–manager challenge above has now been passed.
 
 ## A. Universal senior-level JOIN checklist
 
@@ -421,3 +421,33 @@ left join employee b on a.manager_id=b.employee_id;
 - **Performance/grain:** Since `employee_id` is a primary key, each employee matches at most one manager; no fanout occurs from the manager side.
 
 **Status:** Concept passed. Coding challenge awaits resubmission using the actual practice table and requested output aliases. Reference corrected query intentionally withheld until learner revises.
+
+
+## Day 02 learner submission and feedback — Self JOIN PASSED (2026-10-17)
+
+**Submitted SQL:**
+
+```sql
+SELECT b.employee_name AS manager_name,
+       a.employee_name AS employee_name
+FROM employees a
+LEFT JOIN employees b
+  ON a.manager_id = b.employee_id;
+```
+
+**Evaluation: Passed.** Both references use the correct `employees` table, and the join matches `a.manager_id` to the unique `b.employee_id`. The LEFT JOIN retains Priya, whose manager_id is NULL. Both output columns are correctly named; the order of the selected columns differs from the example but does not affect correctness. An optional `ORDER BY a.employee_id` makes display order predictable.
+
+**Expected logical result (shown in requested column order):**
+
+| employee_name | manager_name |
+|---|---|
+| Priya | NULL |
+| Amit | Priya |
+| Neha | Priya |
+| Ravi | Amit |
+| Sara | Amit |
+| Dev | Neha |
+
+**Interview explanation:** “I join the employees table to itself using two aliases because manager_id points to another employee's employee_id. LEFT JOIN keeps employees who have no manager, such as the CEO.”
+
+**Next:** FULL OUTER JOIN reconciliation exercise. Overall Day 02 remains in progress.

@@ -7,10 +7,10 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (Non-Equi JOIN practice)**
+- Current lesson: **Day 02 — Advanced Joins (ON vs WHERE next)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Submit Non-Equi JOIN salary band challenge, covering exact boundaries and NULL salary**
+- Current next action: **Learn advanced LEFT JOIN ON vs WHERE predicates and NULL behavior; Non-Equi reference solution shared on request**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
@@ -97,7 +97,14 @@ LEFT JOIN employees b
 
 - Practice setup: employee_pay with six employees including boundary salaries 60000, 100000, 200000 and one NULL salary; salary_bands with four half-open ranges.
 - Goal: LEFT JOIN to salary bands using inclusive lower / exclusive upper boundaries; preserve NULL salary; expected six rows with no duplicates.
-- Learner attempt pending. Do not mark passed until reviewed.
+- Learner requested the correct answer without an attempt. Reference solution provided; not independently passed.
+
+## Day 02 Non-Equi JOIN — reference solution shared (2026-10-17)
+
+- Learner requested the correct answer directly; no independent coding attempt submitted.
+- Reference uses LEFT JOIN employee_pay to salary_bands with salary >= min_salary and salary < max_salary; six expected rows including NULL salary.
+- Correctly explains half-open interval boundaries and the need to validate overlapping ranges in production.
+- Not counted as a passed challenge. Next topic: ON vs WHERE and NULL behavior.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

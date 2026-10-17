@@ -399,3 +399,25 @@ LEFT JOIN employee b
 
 **Assessment:** Join logic correct; query cannot execute against the provided practice schema. Good use of LEFT JOIN and correct alias roles (a=employee, b=manager). Two identifiers to correct: table is `employees`, not `employee`; join target column is `b.employee_id`, not `b.employee`. Output alias order may be aligned to requested `employee_name, manager_name`. No reference solution revealed. Awaiting revised SQL.
 
+
+
+## Self JOIN Challenge 01 — Learner attempt and feedback (2026-10-17)
+
+**Submitted SQL:**
+
+```sql
+select b.employee_name as manager, a.employee_name as employee_name
+from employee a
+left join employee b on a.manager_id=b.employee_id;
+```
+
+**Assessment: Correct join logic; small schema/output corrections pending.**
+
+- **Correct:** Joins the employee alias `a` to the manager alias `b` on `a.manager_id = b.employee_id`.
+- **Correct:** LEFT JOIN retains top-level manager Priya with NULL manager name.
+- **Correction 1:** The lesson setup creates table `employees` (plural), not `employee`.
+- **Correction 2:** The requested output is `employee_name`, `manager_name`; use `manager_name` instead of `manager` and put employee first in SELECT.
+- **Optional:** Add `ORDER BY a.employee_id` for deterministic presentation; SQL results are unordered without ORDER BY.
+- **Performance/grain:** Since `employee_id` is a primary key, each employee matches at most one manager; no fanout occurs from the manager side.
+
+**Status:** Concept passed. Coding challenge awaits resubmission using the actual practice table and requested output aliases. Reference corrected query intentionally withheld until learner revises.

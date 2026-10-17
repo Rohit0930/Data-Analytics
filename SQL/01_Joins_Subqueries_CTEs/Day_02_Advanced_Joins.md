@@ -3,7 +3,7 @@
 **Started:** 2026-10-17  
 **Database:** PostgreSQL  
 **Topics:** Self JOIN, FULL OUTER JOIN, CROSS JOIN, Non-Equi JOIN; ON vs WHERE edge cases  
-**Status:** Self JOIN passed; FULL OUTER JOIN reference reviewed; Topic 3 CROSS JOIN coding challenge assigned
+**Status:** Self JOIN passed; FULL OUTER JOIN and CROSS JOIN references provided; Topic 4 Non-Equi JOIN challenge assigned
 
 ## Day 2 plan
 1. Self JOIN — employee/manager hierarchy.
@@ -608,3 +608,53 @@ ORDER BY p.product_id, m.month_start;
 **Key points:** Monthly pre-aggregation yields a unique product-month key; CROSS JOIN generates the full 3 × 2 grid; LEFT JOIN retains combinations without sales; COALESCE returns zero for missing revenue. Consider active product periods and size of Cartesian product in production.
 
 **Next topic:** Non-equi JOIN / salary range matching. Day 02 remains in progress.
+
+
+## Non-Equi JOIN — Challenge 04 assigned (2026-10-17)
+
+**Lesson:** A non-equi join uses inequality or range predicates, such as `e.salary >= b.min_salary AND e.salary < b.max_salary`. Half-open intervals prevent adjacent bands from both matching the same boundary salary. Avoid `BETWEEN` on adjoining closed intervals. Check overlaps, gaps, NULL values, and row multiplicity. Similar logic applies to SCD Type 2 effective-date joins.
+
+**New practice setup:**
+
+```sql
+CREATE TABLE employee_pay (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    salary NUMERIC(12,2)
+);
+
+CREATE TABLE salary_bands (
+    band_name VARCHAR(30),
+    min_salary NUMERIC(12,2),
+    max_salary NUMERIC(12,2)
+);
+
+INSERT INTO employee_pay VALUES
+(1, 'Asha', 55000),
+(2, 'Bharat', 60000),
+(3, 'Charu', 99999),
+(4, 'Dev', 100000),
+(5, 'Esha', 200000),
+(6, 'Farah', NULL);
+
+INSERT INTO salary_bands VALUES
+('Junior', 0, 60000),
+('Mid', 60000, 100000),
+('Senior', 100000, 200000),
+('Principal', 200000, 500000);
+```
+
+**Challenge:** Return all employees with their salary and band, preserving NULL-salary employees, using LEFT JOIN and range predicates.
+
+| employee_name | salary | band_name |
+|---|---:|---|
+| Asha | 55000 | Junior |
+| Bharat | 60000 | Mid |
+| Charu | 99999 | Mid |
+| Dev | 100000 | Senior |
+| Esha | 200000 | Principal |
+| Farah | NULL | NULL |
+
+**Review criteria:** Exactly six employees, no duplicate band matches, inclusive lower and exclusive upper boundaries, NULL salary preserved. Reference solution intentionally withheld until learner attempts or requests it.
+
+**Status:** Challenge assigned; learner attempt pending. Day 02 remains in progress.

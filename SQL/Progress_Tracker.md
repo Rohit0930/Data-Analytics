@@ -10,13 +10,13 @@
 - Current lesson: **Day 02 — Advanced Joins (FULL OUTER JOIN next)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Revise FULL OUTER JOIN reconciliation attempt: PostgreSQL syntax, key-based presence, NULL-safe amount comparison**
+- Current next action: **Review provided FULL OUTER JOIN reference solution; continue Day 02 with CROSS JOIN**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN attempt 1 under review | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN reference provided (not independently passed) | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -69,7 +69,15 @@ LEFT JOIN employees b
 - Fix MySQL-style backticks: PostgreSQL identifiers must be unquoted or double-quoted.
 - Determine row presence with order_id IS NULL, not amount IS NULL.
 - Compare nullable amounts using IS DISTINCT FROM, with a defined policy for both amounts NULL.
-- Use exact requested status labels. Corrected query pending; not yet passed.
+- Use exact requested status labels. Reference solution provided on learner request; no independent corrected attempt, so challenge not marked passed.
+
+## Day 02 FULL OUTER JOIN — reference solution shared (2026-10-17)
+
+- Learner requested the correct answer after their first attempt.
+- Reference query uses FULL OUTER JOIN, COALESCE, missing-row checks on order_id, and NULL-safe amount comparison via IS DISTINCT FROM.
+- Expected classifications: 101 MATCH, 102 AMOUNT_MISMATCH, 103 ONLY_IN_SALES, 104 ONLY_IN_FINANCE.
+- Explanation: NULL amount does not mean a missing order. Both NULL amounts currently classify as MATCH; business rules may require a missing-amount category.
+- Coding challenge remains not independently passed; move to CROSS JOIN next.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

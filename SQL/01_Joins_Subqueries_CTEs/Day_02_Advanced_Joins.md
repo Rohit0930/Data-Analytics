@@ -3,7 +3,7 @@
 **Started:** 2026-10-17  
 **Database:** PostgreSQL  
 **Topics:** Self JOIN, FULL OUTER JOIN, CROSS JOIN, Non-Equi JOIN; ON vs WHERE edge cases  
-**Status:** Self JOIN passed; FULL OUTER JOIN and CROSS JOIN references provided; Topic 4 Non-Equi JOIN challenge assigned
+**Status:** Self JOIN passed; FULL OUTER, CROSS and Non-Equi JOIN reference solutions provided; Topic 5 ON vs WHERE next
 
 ## Day 2 plan
 1. Self JOIN — employee/manager hierarchy.
@@ -655,6 +655,38 @@ INSERT INTO salary_bands VALUES
 | Esha | 200000 | Principal |
 | Farah | NULL | NULL |
 
-**Review criteria:** Exactly six employees, no duplicate band matches, inclusive lower and exclusive upper boundaries, NULL salary preserved. Reference solution intentionally withheld until learner attempts or requests it.
+**Review criteria:** Exactly six employees, no duplicate band matches, inclusive lower and exclusive upper boundaries, NULL salary preserved. Reference solution provided at learner request; see section below.
 
-**Status:** Challenge assigned; learner attempt pending. Day 02 remains in progress.
+**Status:** Learner requested reference answer without submitting an attempt. Not independently passed. Day 02 remains in progress.
+
+
+## Non-Equi JOIN — reference solution shared on request (2026-10-17)
+
+The learner requested the correct answer without a submitted attempt. The reference solution is for learning; **do not count as an independently passed coding challenge**.
+
+```sql
+SELECT
+    e.employee_name,
+    e.salary,
+    b.band_name
+FROM employee_pay e
+LEFT JOIN salary_bands b
+    ON e.salary >= b.min_salary
+   AND e.salary < b.max_salary
+ORDER BY e.employee_id;
+```
+
+**Expected output:**
+
+| employee_name | salary | band_name |
+|---|---:|---|
+| Asha | 55000 | Junior |
+| Bharat | 60000 | Mid |
+| Charu | 99999 | Mid |
+| Dev | 100000 | Senior |
+| Esha | 200000 | Principal |
+| Farah | NULL | NULL |
+
+**Concepts:** LEFT JOIN retains NULL-salary employee; inclusive minimum and exclusive maximum avoids boundary duplicates; a half-open range does not by itself guarantee one row per employee if band ranges overlap. In production validate gaps/overlaps and use appropriate constraints.
+
+**Next:** Day 02 Topic 5, advanced ON vs WHERE predicates and NULL behavior.

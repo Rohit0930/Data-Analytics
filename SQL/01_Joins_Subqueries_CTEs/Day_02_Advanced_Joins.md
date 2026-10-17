@@ -466,4 +466,39 @@ Assessment: PARTIALLY CORRECT; revise before marking passed.
 - Match required uppercase output statuses exactly.
 - Example edge case: order 105 appears in both tables; Sales amount NULL and Finance amount 300. This is not finance-only.
 
-Learner to resubmit corrected SQL. Reference solution intentionally withheld.
+Learner to resubmit corrected SQL. Reference solution was subsequently provided at learner request; see below.
+
+
+## FULL OUTER JOIN — reference solution supplied on learner request (2026-10-17)
+
+The learner explicitly requested the correct answer after the first attempt. The reference solution is now disclosed; this is **not** an independently passed coding challenge.
+
+```sql
+SELECT
+    COALESCE(a.order_id, b.order_id) AS order_id,
+    a.amount AS sales_amount,
+    b.amount AS finance_amount,
+    CASE
+        WHEN a.order_id IS NULL THEN 'ONLY_IN_FINANCE'
+        WHEN b.order_id IS NULL THEN 'ONLY_IN_SALES'
+        WHEN a.amount IS DISTINCT FROM b.amount THEN 'AMOUNT_MISMATCH'
+        ELSE 'MATCH'
+    END AS status
+FROM sales_orders a
+FULL OUTER JOIN finance_orders b
+    ON a.order_id = b.order_id
+ORDER BY COALESCE(a.order_id, b.order_id);
+```
+
+Expected output:
+
+| order_id | sales_amount | finance_amount | status |
+|---:|---:|---:|---|
+| 101 | 500 | 500 | MATCH |
+| 102 | 700 | 650 | AMOUNT_MISMATCH |
+| 103 | 900 | NULL | ONLY_IN_SALES |
+| 104 | NULL | 300 | ONLY_IN_FINANCE |
+
+**Explanation:** Identify missing rows by their IDs first. Only after both IDs are present should the amount comparison run. PostgreSQL `IS DISTINCT FROM` treats one NULL amount and one non-NULL amount as different. If both present amounts are NULL, the reference query labels the row MATCH; whether to instead flag missing amounts is a business decision.
+
+**Next:** Learner should explain the NULL-amount edge case in their own words, then proceed to CROSS JOIN. Day 2 overall remains in progress.

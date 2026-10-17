@@ -10,13 +10,13 @@
 - Current lesson: **Day 02 — Advanced Joins (Self JOIN in progress)**
 - Coding challenges passed: **1**
 - Mock interviews completed: **0**
-- Current next action: **Study Day 02 advanced join guide; submit pending employee–manager Self JOIN challenge (one exercise at a time)**
+- Current next action: **Resubmit Day 02 employee–manager Self JOIN with correct table name and manager key**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN challenge pending; full guide available | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN attempt 1: correct logic, identifiers to fix | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -36,10 +36,12 @@
 
 | 2026-10-14 | 01 | Interview explanation for SUM(DISTINCT amount) was incomplete; conflated duplicate join rows with duplicate monetary values | SUM(DISTINCT amount) deduplicates values, not orders: two valid orders with identical amounts must both count. Pre-aggregate payments per order_id to prevent fanout | Concept check passed; wording for revision |
 
+| 2026-10-17 | 02 | Self JOIN attempt 1 uses table `employee` instead of `employees` and `b.employee` instead of `b.employee_id` | Use correct table and column names; LEFT self join is appropriate to retain the top-level manager | Revision pending |
+
 ## Day 02 lesson preparation
 - Full advanced guide committed 2026-10-17: Self JOIN, FULL OUTER JOIN, CROSS JOIN, non-equi range joins, ON vs WHERE, NULL-safe comparisons, row-count and performance checks.
 - Worked PostgreSQL examples and expected outputs available in `01_Joins_Subqueries_CTEs/Day_02_Advanced_Joins.md`.
-- Learner is still on Self JOIN challenge 01; no solution submitted yet and no Day 02 challenge marked complete.
+- Learner submitted Self JOIN challenge 01 attempt 1. Relationship and LEFT JOIN direction are correct, but two identifier errors prevent execution. Awaiting corrected query; Day 02 challenge not yet passed.
 
 ## Day 02 interview concept feedback
 - **2026-10-17 — Self JOIN purpose:** Correct. Learner explained that manager_id must be matched to employee_id in the same table to retrieve manager name. Refine interview wording to describe two aliases and a self-referencing relationship.

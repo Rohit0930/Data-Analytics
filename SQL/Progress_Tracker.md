@@ -47,6 +47,8 @@
 - **2026-10-17 — Self JOIN purpose:** Correct. Learner explained that manager_id must be matched to employee_id in the same table to retrieve manager name. Refine interview wording to describe two aliases and a self-referencing relationship.
 - **Day 02 hands-on:** Not yet attempted. Do not mark completed.
 
+| 2026-10-17 | 02 | Self JOIN attempt used `employee` instead of created `employees` table and returned `manager` alias instead of `manager_name` | Match schema exactly and use required output column names/order; join condition and LEFT JOIN are correct | Resubmission pending |
+
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.
 - **Edge cases:** Handles zero matches, duplicate keys, NULLs and boundary dates when relevant.

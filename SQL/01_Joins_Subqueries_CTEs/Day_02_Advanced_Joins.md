@@ -3,7 +3,7 @@
 **Started:** 2026-10-17  
 **Database:** PostgreSQL  
 **Topics:** Self JOIN, FULL OUTER JOIN, CROSS JOIN, Non-Equi JOIN; ON vs WHERE edge cases  
-**Status:** Self JOIN passed; FULL OUTER, CROSS and Non-Equi JOIN reference solutions provided; Topic 5 ON vs WHERE next
+**Status:** Self JOIN passed; FULL OUTER, CROSS and Non-Equi JOIN references supplied; Topic 5 ON vs WHERE challenge active
 
 ## Day 2 plan
 1. Self JOIN — employee/manager hierarchy.
@@ -690,3 +690,76 @@ ORDER BY e.employee_id;
 **Concepts:** LEFT JOIN retains NULL-salary employee; inclusive minimum and exclusive maximum avoids boundary duplicates; a half-open range does not by itself guarantee one row per employee if band ranges overlap. In production validate gaps/overlaps and use appropriate constraints.
 
 **Next:** Day 02 Topic 5, advanced ON vs WHERE predicates and NULL behavior.
+
+
+## Topic 5 — LEFT JOIN ON vs WHERE (2026-10-17)
+
+**Core principle:** In a LEFT JOIN, predicates on the right table in `ON` restrict matches while preserving left rows; null-rejecting predicates on the right table in `WHERE` can eliminate left rows with no qualifying match. `WHERE o.status = 'PAID' OR o.order_id IS NULL` does **not** rescue customers who have only non-PAID orders.
+
+**Worked example:** customers Asha (one paid 2026 order and one paid 2025 order), Bharat (only pending 2026 order), Charu (no orders). LEFT JOIN with PAID and 2026 conditions in ON retains Asha/101, Bharat/NULL, Charu/NULL. Moving those predicates into WHERE returns only Asha/101.
+
+**Important aggregation:** `COUNT(*)` counts the NULL-extended row for unmatched customers; `COUNT(o.order_id)` returns zero. `COALESCE(SUM(o.amount),0)` makes zero-revenue rows explicit. For INNER JOIN, moving deterministic right-table predicates between ON and WHERE generally preserves results.
+
+### Challenge 05 — Paid orders per customer in 2026 (awaiting learner attempt)
+
+**Input customers:**
+
+| customer_id | customer_name |
+|---:|---|
+| 1 | Ava |
+| 2 | Ben |
+| 3 | Chloe |
+| 4 | Diego |
+
+**Input orders:**
+
+| order_id | customer_id | order_date | amount | status |
+|---:|---:|---|---:|---|
+| 201 | 1 | 2026-03-02 | 100 | PAID |
+| 202 | 1 | 2026-03-10 | 150 | PAID |
+| 203 | 1 | 2026-03-11 | 50 | REFUNDED |
+| 204 | 2 | 2025-12-30 | 400 | PAID |
+| 205 | 3 | 2026-04-05 | 300 | PENDING |
+| 206 | 3 | 2026-04-07 | 200 | PAID |
+
+**Requirement:** Every customer with count of PAID 2026 orders and sum of PAID 2026 amount. Use LEFT JOIN, COUNT, SUM, COALESCE, GROUP BY. Preserve Ben and Diego as zero rows.
+
+**Expected output:**
+
+| customer_name | paid_orders | paid_revenue |
+|---|---:|---:|
+| Ava | 2 | 250 |
+| Ben | 0 | 0 |
+| Chloe | 1 | 200 |
+| Diego | 0 | 0 |
+
+**PostgreSQL reproducible setup (optional):**
+
+```sql
+DROP TABLE IF EXISTS day2_topic5_orders;
+DROP TABLE IF EXISTS day2_topic5_customers;
+CREATE TABLE day2_topic5_customers (
+    customer_id INT PRIMARY KEY,
+    customer_name TEXT NOT NULL
+);
+CREATE TABLE day2_topic5_orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT NOT NULL REFERENCES day2_topic5_customers(customer_id),
+    order_date DATE NOT NULL,
+    amount NUMERIC(12,2),
+    status TEXT NOT NULL
+);
+INSERT INTO day2_topic5_customers VALUES
+(1,'Ava'),(2,'Ben'),(3,'Chloe'),(4,'Diego');
+INSERT INTO day2_topic5_orders VALUES
+(201,1,'2026-03-02',100,'PAID'),
+(202,1,'2026-03-10',150,'PAID'),
+(203,1,'2026-03-11',50,'REFUNDED'),
+(204,2,'2025-12-30',400,'PAID'),
+(205,3,'2026-04-05',300,'PENDING'),
+(206,3,'2026-04-07',200,'PAID');
+```
+
+If using this standalone setup, replace the challenge's conceptual table names `customers` and `orders` with `day2_topic5_customers` and `day2_topic5_orders`. No reference answer has been given.
+
+**Review criteria:** Four customers retained; no count inflation; status and date filter semantics correct; 2026 boundaries precise; NULL-safe aggregation; one row per customer. Day 2 remains in progress pending this attempt and final interview check.

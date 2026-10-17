@@ -384,3 +384,18 @@ Answer **one at a time**, after the corresponding hands-on attempt.
 - [ ] Challenge 05: ON vs WHERE troubleshooting and final interview explanation.
 
 **Status:** Day 2 remains in progress. Do not mark exercises complete or publish solutions before learner attempts.
+
+
+## I. Self JOIN challenge — attempt 1 (2026-10-17)
+
+Learner's SQL:
+
+```sql
+SELECT b.employee_name AS manager, a.employee_name AS employee
+FROM employee a
+LEFT JOIN employee b
+  ON a.manager_id = b.employee;
+```
+
+**Assessment:** Join logic correct; query cannot execute against the provided practice schema. Good use of LEFT JOIN and correct alias roles (a=employee, b=manager). Two identifiers to correct: table is `employees`, not `employee`; join target column is `b.employee_id`, not `b.employee`. Output alias order may be aligned to requested `employee_name, manager_name`. No reference solution revealed. Awaiting revised SQL.
+

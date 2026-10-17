@@ -3,20 +3,20 @@
 **Program start:** 2026-10-14  
 **Target:** 42 days of senior/lead SQL mastery  
 **Primary database:** PostgreSQL  
-**Last updated:** 2026-10-14
+**Last updated:** 2026-10-17
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 01 — Joins, Grain & Cardinality (completed)**
+- Current lesson: **Day 02 — Advanced Joins (Self JOIN in progress)**
 - Coding challenges passed: **1**
 - Mock interviews completed: **0**
-- Current next action: **Day 02 — Advanced Joins; review Day 01 join fanout and SUM(DISTINCT) edge case briefly**
+- Current next action: **Submit Day 02 Self JOIN employee-manager coding challenge**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02–07 | Advanced joins, subqueries, CTEs, mock | Not started | — | — |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN challenge pending | Concept response correct |\n| 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
 | 22–28 | PostgreSQL and performance | Not started | — | — |
@@ -35,7 +35,7 @@
 
 | 2026-10-14 | 01 | Interview explanation for SUM(DISTINCT amount) was incomplete; conflated duplicate join rows with duplicate monetary values | SUM(DISTINCT amount) deduplicates values, not orders: two valid orders with identical amounts must both count. Pre-aggregate payments per order_id to prevent fanout | Concept check passed; wording for revision |
 
-## Assessment rules
+## Day 02 interview concept feedback\n- **2026-10-17 — Self JOIN purpose:** Correct. Learner explained that manager_id must be matched to employee_id in the same table to retrieve manager name. Refine interview wording to describe two aliases and a self-referencing relationship.\n- **Day 02 hands-on:** Not yet attempted. Do not mark completed.\n\n## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.
 - **Edge cases:** Handles zero matches, duplicate keys, NULLs and boundary dates when relevant.
 - **Performance:** Avoids unnecessary work and explains the query plan where relevant.

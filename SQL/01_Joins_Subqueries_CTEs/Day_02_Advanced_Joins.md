@@ -567,3 +567,12 @@ INSERT INTO day2_sales VALUES
 - Explain grain and cross-join growth. Deterministic output ordering is recommended.
 
 **Status:** Awaiting learner SQL; challenge solution withheld.
+
+
+## CROSS JOIN — partial attempt 1 (2026-10-17)
+
+Learner began a CTE aggregating sales by month and product, but submitted only a partial query (no final SELECT or joins). The approach of pre-aggregating monthly sales is appropriate.
+
+**Corrections requested:** Use actual columns from day2_sales: product_id, sale_date, revenue; customer_id, sales_date, and sales do not exist in this setup. Use DATE_TRUNC('month', sale_date)::date for the month_start date rather than extracting a month number. Fix invalid EXTRACT syntax and the extra comma in GROUP BY. Then build the product-month grid with CROSS JOIN, attach sales via LEFT JOIN, and COALESCE missing totals to zero.
+
+**Status:** Partial attempt, not passed. Full reference solution withheld pending learner completion.

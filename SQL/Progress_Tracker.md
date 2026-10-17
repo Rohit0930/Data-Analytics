@@ -10,13 +10,13 @@
 - Current lesson: **Day 02 — Advanced Joins (FULL OUTER JOIN next)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Practice Day 02 FULL OUTER JOIN reconciliation after passing Self JOIN**
+- Current next action: **Revise FULL OUTER JOIN reconciliation attempt: PostgreSQL syntax, key-based presence, NULL-safe amount comparison**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed on corrected attempt; FULL OUTER JOIN pending | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN attempt 1 under review | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -62,6 +62,14 @@ LEFT JOIN employees b
 - **Passed:** Correct table, manager key, aliases, LEFT JOIN, and output names; top-level employee Priya remains with NULL manager.
 - **Optional:** Return employee_name first to match requested column order; ORDER BY a.employee_id for deterministic display.
 - **Next:** FULL OUTER JOIN reconciliation challenge; Day 02 remains in progress.
+
+## Day 02 FULL OUTER JOIN — attempt 1 feedback (2026-10-17)
+
+- Correct FULL OUTER JOIN on order_id and appropriate use of COALESCE in principle.
+- Fix MySQL-style backticks: PostgreSQL identifiers must be unquoted or double-quoted.
+- Determine row presence with order_id IS NULL, not amount IS NULL.
+- Compare nullable amounts using IS DISTINCT FROM, with a defined policy for both amounts NULL.
+- Use exact requested status labels. Corrected query pending; not yet passed.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

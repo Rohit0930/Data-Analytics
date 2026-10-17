@@ -7,16 +7,16 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (Self JOIN in progress)**
-- Coding challenges passed: **1**
+- Current lesson: **Day 02 — Advanced Joins (FULL OUTER JOIN next)**
+- Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Resubmit Day 02 employee–manager Self JOIN with correct table name and manager key**
+- Current next action: **Practice Day 02 FULL OUTER JOIN reconciliation after passing Self JOIN**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN attempt 1: correct logic, identifiers to fix | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed on corrected attempt; FULL OUTER JOIN pending | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -36,18 +36,32 @@
 
 | 2026-10-14 | 01 | Interview explanation for SUM(DISTINCT amount) was incomplete; conflated duplicate join rows with duplicate monetary values | SUM(DISTINCT amount) deduplicates values, not orders: two valid orders with identical amounts must both count. Pre-aggregate payments per order_id to prevent fanout | Concept check passed; wording for revision |
 
-| 2026-10-17 | 02 | Self JOIN attempt 1 uses table `employee` instead of `employees` and `b.employee` instead of `b.employee_id` | Use correct table and column names; LEFT self join is appropriate to retain the top-level manager | Revision pending |
+| 2026-10-17 | 02 | Self JOIN attempt 1 uses table `employee` instead of `employees` and `b.employee` instead of `b.employee_id` | Use correct table and column names; LEFT self join is appropriate to retain the top-level manager | Corrected; passed |
 
 ## Day 02 lesson preparation
 - Full advanced guide committed 2026-10-17: Self JOIN, FULL OUTER JOIN, CROSS JOIN, non-equi range joins, ON vs WHERE, NULL-safe comparisons, row-count and performance checks.
 - Worked PostgreSQL examples and expected outputs available in `01_Joins_Subqueries_CTEs/Day_02_Advanced_Joins.md`.
-- Learner submitted Self JOIN challenge 01 attempt 1. Relationship and LEFT JOIN direction are correct, but two identifier errors prevent execution. Awaiting corrected query; Day 02 challenge not yet passed.
+- Learner submitted Self JOIN challenge 01 attempt 1. Relationship and LEFT JOIN direction are correct, but two identifier errors prevent execution. Corrected Self JOIN submitted and passed; FULL OUTER JOIN is next. Day 02 overall remains in progress.
 
 ## Day 02 interview concept feedback
 - **2026-10-17 — Self JOIN purpose:** Correct. Learner explained that manager_id must be matched to employee_id in the same table to retrieve manager name. Refine interview wording to describe two aliases and a self-referencing relationship.
-- **Day 02 hands-on:** Not yet attempted. Do not mark completed.
+- **Day 02 hands-on:** Employee–manager Self JOIN passed on corrected attempt. Remaining advanced join exercises pending; do not mark Day 02 completed.
 
-| 2026-10-17 | 02 | Self JOIN attempt used `employee` instead of created `employees` table and returned `manager` alias instead of `manager_name` | Match schema exactly and use required output column names/order; join condition and LEFT JOIN are correct | Resubmission pending |
+| 2026-10-17 | 02 | Self JOIN attempt used `employee` instead of created `employees` table and returned `manager` alias instead of `manager_name` | Match schema exactly and use required output column names/order; join condition and LEFT JOIN are correct | Corrected; passed |
+
+## Day 02 Self JOIN — passing submission (2026-10-17)
+
+```sql
+SELECT b.employee_name AS manager_name,
+       a.employee_name AS employee_name
+FROM employees a
+LEFT JOIN employees b
+  ON a.manager_id = b.employee_id;
+```
+
+- **Passed:** Correct table, manager key, aliases, LEFT JOIN, and output names; top-level employee Priya remains with NULL manager.
+- **Optional:** Return employee_name first to match requested column order; ORDER BY a.employee_id for deterministic display.
+- **Next:** FULL OUTER JOIN reconciliation challenge; Day 02 remains in progress.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

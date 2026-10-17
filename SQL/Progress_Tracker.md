@@ -7,16 +7,16 @@
 
 ## Status summary
 - Days completed: **1 / 42**
-- Current lesson: **Day 02 — Advanced Joins (CROSS JOIN practice)**
+- Current lesson: **Day 02 — Advanced Joins (Non-equi JOIN next)**
 - Coding challenges passed: **2**
 - Mock interviews completed: **0**
-- Current next action: **Submit CROSS JOIN product-month revenue grid challenge; expected 6 rows and 3400 total revenue**
+- Current next action: **Practice non-equi JOIN salary range matching; CROSS JOIN reference solution provided on request**
 
 ## Topic tracker
 | Day | Topic | Status | Coding | Interview |
 |---:|---|---|---|---|
 | 01 | Joins, grain, cardinality, fanout | Completed (2026-10-14) | Passed (attempt 4) | Concept checks passed; concise explanation for revision |
-| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN reference provided (not independently passed); CROSS JOIN challenge assigned | Self JOIN concept response correct |
+| 02 | Advanced joins: self, full, cross, non-equi | In progress (2026-10-17) | Self JOIN passed; FULL OUTER JOIN reference provided (not independently passed); CROSS JOIN reference provided (not independently passed) | Self JOIN concept response correct |
 | 03–07 | Semi/anti joins, subqueries, CTEs, mock | Not started | — | — |
 | 08–14 | Window functions and mock | Not started | — | — |
 | 15–21 | Date logic and business analytics | Not started | — | — |
@@ -84,7 +84,14 @@ LEFT JOIN employees b
 - Practice setup and expected six-row output saved in Day_02_Advanced_Joins.md.
 - Input: 3 products × 2 months; 6 sales records with multiple transactions for some product-months.
 - Goal: CROSS JOIN reporting grid, LEFT JOIN sales, SUM and COALESCE; total 3400, including zero-sales combinations.
-- Learner attempt pending. No solution disclosed; do not mark passed until reviewed.
+- Partial CTE attempt submitted and reviewed; learner requested the complete solution. Reference provided, not independently passed.
+
+## Day 02 CROSS JOIN — reference solution shared (2026-10-17)
+
+- Learner started monthly sales CTE but used nonexistent columns and incomplete EXTRACT syntax. DATE_TRUNC('month', sale_date)::date is the correct PostgreSQL month-start expression.
+- Complete solution uses monthly sales CTE, products CROSS JOIN months, LEFT JOIN by product_id and month_start, and COALESCE for missing sales.
+- Six expected rows; total revenue 3400. Reference solution shared on learner request, not independently passed.
+- Next: Non-equi JOIN range-matching challenge.
 
 ## Assessment rules
 - **Correctness:** Query matches the requirement and expected result.

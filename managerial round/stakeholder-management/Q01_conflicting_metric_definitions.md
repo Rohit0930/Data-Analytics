@@ -25,3 +25,11 @@ If Sales and Finance disagreed about a KPI, I would first understand the busines
 - One concept with two conflicting numbers: reconcile and standardize the definition.
 - Two different valid business concepts: show two separately named metrics, not one ambiguously labeled metric with two values.
 - Avoid invented achievements; personalize the STAR story using a real project and documented result.
+
+## Follow-up: What if both stakeholders still disagree?
+
+**Follow-up assessment:** 7/10. Strong evidence-based instinct: compare how the two calculations influence business decisions. Improvement: the largest apparent impact is not necessarily the most appropriate metric; decide based on the business question and governance rules.
+
+**Corrected answer:** If the stakeholders still disagree, I would compare both calculations side by side and explain their impact on business decisions. I would clarify the purpose of each KPI and determine whether the definitions represent different concepts. If both are valid, I would recommend clearly labeling them separately. If the business requires one enterprise-wide definition and agreement remains impossible, I would present the evidence, trade-offs, and recommendation to the accountable metric owner for a final decision. I would document the decision and obtain sign-off before publishing.
+
+**Model answer:** I would avoid choosing a KPI solely because it produces a more favorable result. I would build a reconciliation showing the calculation rules, data sources, and decision implications. I would facilitate a final alignment meeting, recommend separate measures where business purposes genuinely differ, and escalate any unresolved enterprise definition to the designated decision-maker. Once approved, I would update the metric dictionary and dashboard, confirm ownership, and communicate the outcome to both teams.
